@@ -1,0 +1,14 @@
+.navbar-nav .router-link-active {
+  color: yellow;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.mat-icon {
+  font-size: 24px;
+  margin-left: 5px;
+  color: lightgreen;
+}
