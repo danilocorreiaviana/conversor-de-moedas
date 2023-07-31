@@ -1,3 +1,95 @@
-<div class="container mt-5">
+<div class="container pt">
   <h2 class="text-center">Listagem de Moedas</h2>
-</div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="d-flex">
+          <input type="text" class="form-control" [(ngModel)]="busca" (input)="buscarCoins()"
+            placeholder="Buscar por moeda">
+          <button class="btn btn-secondary ms-2" (click)="limparBusca()">Limpar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center mt-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Carregando...</p>
+  </div>
+
+  <table class="table mt-4 table-rounded" *ngIf="!loading">
+    <thead>
+      <tr>
+        <th class="text-center thread-color">Símbolo</th>
+        <th class="thread-color">Descrição</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let coin of coinList | paginate: { itemsPerPage: itensPorPagina, currentPage: paginaAtual }; let i = index">
+        <td class="text-center">{{ coin.code }}</td>
+        <td>{{ coin.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <div class="row text-center">
+      <div class="form-group">
+        <label for="filtroOrdenacao">Filtrar por:</label>
+        <select class="form-control" id="filtroOrdenacao" [(ngModel)]="filtroOrdenacao"
+          (change)="ordenarPor(filtroOrdenacao)">
+          <option value="symbolAsc">Símbolo (ordem crescente)</option>
+          <option value="symbolDesc">Símbolo (ordem decrescente)</option>
+          <option value="descriptionAsc">Descrição (ordem crescente)</option>
+          <option value="descriptionDesc">Descrição (ordem decrescente)</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="itensPorPagina" style="padding: 10px;">Itens por página:</label>
+          <input type="number" class="form-control" id="itensPorPagina" [(ngModel)]="itensPorPagina"
+            (input)="atualizarPaginacao(1)" max="171" maxlength="3">
+        </div>
+      </div>
+      <div class="col-md-8" style="margin-top: 20px;">
+        <pagination-controls (pageChange)="atualizarPaginacao($event)" [maxSize]="5" [directionLinks]="true"
+          [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
+        </pagination-controls>
+      </div>
+    </div>
+
+    <!-- <div class="container mt-4 pagination">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="col-md-4">
+        <div class="form-group mb-0 text-center">
+          <label for="itensPorPagina">Itens por página:</label>
+          <input type="number" class="form-control" id="itensPorPagina" [(ngModel)]="itensPorPagina" (input)="atualizarPaginacao(1)" max="171" maxlength="3">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <pagination-controls (pageChange)="atualizarPaginacao($event)" class="mt-4"
+          [maxSize]="5" [directionLinks]="true" [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
+        </pagination-controls>
+
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+
+  </div>
+
+  <!-- <div class="form-group">
+    <label for="itensPorPagina">Itens por página:</label>
+    <input type="number" class="form-control" id="itensPorPagina" [(ngModel)]="itensPorPagina" (input)="atualizarPaginacao()">
+  </div>
+  
+  <pagination-controls *ngIf="coinList.length > itensPorPagina" (pageChange)="paginaAtual = $event" class="mt-4 text-center"
+    [maxSize]="5" [directionLinks]="true" [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
+  </pagination-controls> -->

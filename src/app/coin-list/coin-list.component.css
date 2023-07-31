@@ -1,0 +1,64 @@
+@media (min-width: 602px) {
+
+    .pagination ::ng-deep .ngx-pagination .current {
+        background: yellow;
+        color: black;
+        font-weight: 700;
+        border-radius: 50%;
+    }
+
+    .pagination ::ng-deep .ngx-pagination :hover {
+        color: yellow;
+        background-color: transparent;
+        border-radius: 25%;
+    }
+}
+
+@media (max-width: 602px) {
+
+    /* ::ng-deep ul>li:not(.active)>a {
+        color: black !important;
+        background-color: yellow !important;
+        margin: 10px;
+        border-radius: 10px;
+    } */
+
+    pagination-controls > pagination-template > nav > ul > li.pagination-next{
+        color: black !important;
+        background-color: yellow !important;
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+}
+
+.pt{
+    padding-top: 80px;
+}
+
+label {
+    color: #fff;
+    padding: 10px;
+}
+
+.table-rounded {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.thread-color {
+    background-color: #127369;
+    color: #fff;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #127369;
+    border-radius: 5px;
+    padding: 20px;
+    color: #fff;
+}
+
