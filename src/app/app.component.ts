@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -7,12 +6,5 @@ declare var $: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Conversor de Moedas';
-  
-  toggleNavbar(){
-    if ($('.navbar-toggler').is(':visible')) {
-      $('.navbar-collapse').collapse('hide');
-      $('.navbar-toggler').addClass('collapsed');
-  }
-  }
+  title = 'conversor-de-moedas';
 }

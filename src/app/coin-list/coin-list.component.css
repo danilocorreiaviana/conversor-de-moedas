@@ -7,23 +7,21 @@
         border-radius: 50%;
     }
 
-    .pagination ::ng-deep .ngx-pagination :hover {
-        color: yellow;
-        background-color: transparent;
-        border-radius: 25%;
+    .pagination ::ng-deep ul>li:not(.active)>a {
+        border-radius: 10px;
     }
+
+
+    .pagination ::ng-deep ul>li>a:hover {
+        background-color: #bfbfbf;
+        color: black;
+    }
+
 }
 
-@media (max-width: 602px) {
+@media (max-width: 601px) {
 
-    /* ::ng-deep ul>li:not(.active)>a {
-        color: black !important;
-        background-color: yellow !important;
-        margin: 10px;
-        border-radius: 10px;
-    } */
-
-    pagination-controls > pagination-template > nav > ul > li.pagination-next{
+    .pagination ::ng-deep ul>li:not(.active)>a {
         color: black !important;
         background-color: yellow !important;
         margin: 10px;
@@ -32,8 +30,12 @@
 
 }
 
-.pt{
+.pt {
     padding-top: 80px;
+}
+
+.pb {
+    padding-bottom: 30px;
 }
 
 label {
@@ -62,3 +64,36 @@ label {
     color: #fff;
 }
 
+.container-mod {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color: #127369;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.select-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+select {
+    margin: 5px;
+    padding: 5px;
+    width:  250px;
+}
+
+.itens {
+    margin: 5px;
+    padding: 5px;
+    width:  60px;
+}
+
+.pagination ::ng-deep  nav > ul {
+    margin-right: 30px;
+    padding: 0;
+    margin: 0;
+}

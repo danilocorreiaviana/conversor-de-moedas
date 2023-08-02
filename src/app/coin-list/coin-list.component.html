@@ -1,4 +1,4 @@
-<div class="container pt">
+<div class="container pt pb">
   <h2 class="text-center">Listagem de Moedas</h2>
 
   <div class="container mt-4">
@@ -10,6 +10,19 @@
           <button class="btn btn-secondary ms-2" (click)="limparBusca()">Limpar</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="container-mod">
+    <div class="select-container">
+      <label for="filtroOrdenacao">Filtrar por:</label>
+      <select class="form-select" id="filtroOrdenacao" [(ngModel)]="filtroOrdenacao"
+        (change)="ordenarPor(filtroOrdenacao)">
+        <option value="symbolAsc">Símbolo (ordem crescente)</option>
+        <option value="symbolDesc">Símbolo (ordem decrescente)</option>
+        <option value="descriptionAsc">Descrição (ordem crescente)</option>
+        <option value="descriptionDesc">Descrição (ordem decrescente)</option>
+      </select>
     </div>
   </div>
 
@@ -37,59 +50,23 @@
   </table>
 
   <div class="pagination">
-    <div class="row text-center">
-      <div class="form-group">
-        <label for="filtroOrdenacao">Filtrar por:</label>
-        <select class="form-control" id="filtroOrdenacao" [(ngModel)]="filtroOrdenacao"
-          (change)="ordenarPor(filtroOrdenacao)">
-          <option value="symbolAsc">Símbolo (ordem crescente)</option>
-          <option value="symbolDesc">Símbolo (ordem decrescente)</option>
-          <option value="descriptionAsc">Descrição (ordem crescente)</option>
-          <option value="descriptionDesc">Descrição (ordem decrescente)</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="itensPorPagina" style="padding: 10px;">Itens por página:</label>
-          <input type="number" class="form-control" id="itensPorPagina" [(ngModel)]="itensPorPagina"
-            (input)="atualizarPaginacao(1)" max="171" maxlength="3">
-        </div>
-      </div>
-      <div class="col-md-8" style="margin-top: 20px;">
-        <pagination-controls (pageChange)="atualizarPaginacao($event)" [maxSize]="5" [directionLinks]="true"
-          [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
-        </pagination-controls>
-      </div>
-    </div>
-
-    <!-- <div class="container mt-4 pagination">
-    <div class="d-flex justify-content-center align-items-center">
-      <div class="col-md-4">
-        <div class="form-group mb-0 text-center">
-          <label for="itensPorPagina">Itens por página:</label>
-          <input type="number" class="form-control" id="itensPorPagina" [(ngModel)]="itensPorPagina" (input)="atualizarPaginacao(1)" max="171" maxlength="3">
-        </div>
-      </div>
-      <div class="col-md-8">
-        <pagination-controls (pageChange)="atualizarPaginacao($event)" class="mt-4"
-          [maxSize]="5" [directionLinks]="true" [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
-        </pagination-controls>
-
-      </div>
-    </div>
-  </div> -->
-
-
-
-
-
-  </div>
-
-  <!-- <div class="form-group">
     <label for="itensPorPagina">Itens por página:</label>
-    <input type="number" class="form-control" id="itensPorPagina" [(ngModel)]="itensPorPagina" (input)="atualizarPaginacao()">
+
+    <select class="form-select itens" id="itensPorPagina" [(ngModel)]="itensPorPagina" (change)="atualizarPaginacao(1)">
+      <option>5</option>
+      <option>10</option>
+      <option>15</option>
+      <option>20</option>
+      <option>25</option>
+      <option>30</option>
+    </select>
+
   </div>
-  
-  <pagination-controls *ngIf="coinList.length > itensPorPagina" (pageChange)="paginaAtual = $event" class="mt-4 text-center"
-    [maxSize]="5" [directionLinks]="true" [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
-  </pagination-controls> -->
+
+  <div class="pagination">
+    <pagination-controls (pageChange)="atualizarPaginacao($event)" [maxSize]="5" [directionLinks]="true"
+      [responsive]="true" [previousLabel]="'Anterior'" [nextLabel]="'Próximo'">
+    </pagination-controls>
+  </div>
+
+</div>

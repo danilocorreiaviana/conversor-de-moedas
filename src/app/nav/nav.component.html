@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <span>{{title}}</span>
+      <mat-icon>money</mat-icon>
+    </a>
+
+    <span class="navbar-toggler navbar-toggler-right collapsed" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="my-1 mx-2 close">X</span>
+      <span class="navbar-toggler-icon"></span>
+    </span>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{exact: true}" (click)="toggleNavbar()">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/coin-list" routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{exact: true}" (click)="toggleNavbar()">Listagem de Moedas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/currency-conversion" routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{exact: true}" (click)="toggleNavbar()">Conversão de Moedas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/coin-history" routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{exact: true}" (click)="toggleNavbar()">Histórico de Conversões</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

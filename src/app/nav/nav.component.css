@@ -1,0 +1,34 @@
+.navbar {
+  background-color: #10403B;
+}
+
+.navbar-nav .router-link-active {
+  color: yellow;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  scroll-behavior: none;
+}
+
+.navbar-toggler>.close {
+  display: inline;
+}
+
+.navbar-toggler.collapsed>.close,
+.navbar-toggler:not(.collapsed)>.navbar-toggler-icon {
+  display: none;
+}
+
+.mat-icon {
+  font-size: 24px;
+  margin-left: 5px;
+  color: lightgreen;
+}
+
+@media (max-width:334px) {
+  .navbar-brand span {
+    font-size: 15px;
+  }
+}
