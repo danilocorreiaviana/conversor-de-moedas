@@ -1,3 +1,27 @@
 <div class="container pt">
   <h2 class="text-center">Conversão de Moedas</h2>
+  <div class="container-mod">
+    <div class="select-container">
+
+      <mat-form-field appearance="fill" class="mat-primary">
+        <mat-label>Moeda de origem</mat-label>
+        <mat-select [(ngModel)]="moedaOrigemSelecionada">
+          <mat-option *ngFor="let moeda of moedasOrigem" [value]="moeda">{{ moeda }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-primary">
+        <mat-label>Moeda de destino</mat-label>
+        <mat-select [(ngModel)]="moedaDestinoSelecionada">
+          <mat-option *ngFor="let moeda of moedasDestino" [value]="moeda">{{ moeda }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    </div>
+  </div>
+
+
+
+
 </div>

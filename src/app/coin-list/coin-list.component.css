@@ -61,7 +61,7 @@ label {
     background-color: #127369;
     border-radius: 5px;
     padding: 20px;
-    color: #fff;
+    color: #fff!important;
 }
 
 .container-mod {

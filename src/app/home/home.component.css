@@ -120,7 +120,7 @@ a {
 
 }
 
-@media (max-width: 280px){
+@media (max-width: 280px) {
     img {
         width: 150px;
         height: 125px;
