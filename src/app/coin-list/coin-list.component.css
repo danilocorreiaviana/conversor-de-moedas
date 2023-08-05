@@ -1,18 +1,20 @@
 @media (min-width: 602px) {
 
-    .pagination ::ng-deep .ngx-pagination .current {
+    .container-mod ::ng-deep .ngx-pagination .current {
         background: yellow;
         color: black;
         font-weight: 700;
         border-radius: 50%;
     }
 
-    .pagination ::ng-deep ul>li:not(.active)>a {
+    .container-mod ::ng-deep ul>li:not(.active)>a {
+        color: #fff;
+        text-decoration: none;
         border-radius: 10px;
     }
 
 
-    .pagination ::ng-deep ul>li>a:hover {
+    .container-mod ::ng-deep ul>li>a:hover {
         background-color: #bfbfbf;
         color: black;
     }
@@ -21,11 +23,12 @@
 
 @media (max-width: 601px) {
 
-    .pagination ::ng-deep ul>li:not(.active)>a {
-        color: black !important;
-        background-color: yellow !important;
+    .container-mod ::ng-deep ul>li:not(.active)>a {
+        color: black;
+        background-color: yellow;
         margin: 10px;
         border-radius: 10px;
+        text-decoration: none;
     }
 
 }
@@ -53,47 +56,38 @@ label {
     color: #fff;
 }
 
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    background-color: #127369;
-    border-radius: 5px;
-    padding: 20px;
-    color: #fff!important;
-}
-
 .container-mod {
     display: flex;
-    justify-content:center;
+    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     background-color: #127369;
     padding: 20px;
     border-radius: 5px;
-    margin-top: 20px;
+    padding-bottom: 0;
 }
 
-.select-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.container-mod ::ng-deep nav>ul {
+    margin-right: 10px;
+    padding: 0;
+    margin-left: 10px;
 }
 
-select {
-    margin: 5px;
-    padding: 5px;
-    width:  250px;
+mat-icon {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.busca {
+    margin: 0 auto;
+    width: 500px;
 }
 
 .itens {
-    margin: 5px;
-    padding: 5px;
-    width:  60px;
+    margin: 0 auto;
+    width: 200px;
 }
 
-.pagination ::ng-deep  nav > ul {
-    margin-right: 30px;
-    padding: 0;
-    margin: 0;
+.fixed-width {
+    width: 200px;
 }

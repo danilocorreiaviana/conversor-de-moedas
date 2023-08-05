@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { CoinListComponent } from './coin-list/coin-list.component';
 import { FooterComponent } from './footer/footer.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CurrencyConversionComponent } from './currency-conversion/currency-conv
     NgxPaginationModule,
     MatIconModule,
     MatSelectModule,
+    MatInputModule
 
   ],
   providers: [],

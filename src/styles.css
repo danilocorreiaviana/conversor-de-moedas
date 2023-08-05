@@ -1,18 +1,59 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+::-webkit-scrollbar {
+  width: 20px;
+  height: 30px;
 
-body{
-    background-color: #8aa6a3;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #bcbcbc;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #127369;
+  border-radius: 5px;
+}
+
+body {
+  background-color: #8aa6a3;
 }
 
 .navbar-nav .active {
-    background-color: #007bff; 
-    color: #fff; 
-  }
+  background-color: #007bff;
+  color: #fff;
+}
 
-html, body { height: 100%; margin: 0; padding: 0;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-form-field {
+  margin: 5px;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: #e0e0e0 !important;
+  border-bottom-right-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+}

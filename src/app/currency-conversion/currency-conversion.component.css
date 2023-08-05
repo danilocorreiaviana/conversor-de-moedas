@@ -1,24 +1,15 @@
-.pt{
+.pt {
     padding-top: 80px;
 }
+
 .container-mod {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     background-color: #127369;
     padding: 20px;
     border-radius: 5px;
     margin-top: 20px;
-}
-
-.select-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-mat-form-field {
-    margin: 5px;
-    padding: 5px;
-    width:  180px;
+    padding-bottom: 0;
 }

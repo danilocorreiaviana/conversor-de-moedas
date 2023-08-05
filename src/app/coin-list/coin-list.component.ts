@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Coin } from './Icoin-list';
-import { map, catchError, finalize } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { CoinListService } from '../service/api.service';
 
 @Component({
@@ -11,7 +8,6 @@ import { CoinListService } from '../service/api.service';
   styleUrls: ['./coin-list.component.css']
 })
 export class CoinListComponent implements OnInit {
-  // apiUrl = 'https://api.exchangerate.host/symbols';
   coinList: Coin[] = [];
   coinListCompleta: Coin[] = [];
   totalMoedas: number = 0;
@@ -28,25 +24,6 @@ export class CoinListComponent implements OnInit {
     this.carregarCoinList();
   }
 
-  // carregarCoinList() {
-  //   this.http.get<any>(this.apiUrl).pipe(
-  //     map((response) => {
-  //       this.coinListCompleta = Object.keys(response.symbols).map((key) => ({
-  //         code: key,
-  //         description: response.symbols[key].description,
-  //       }));
-  //       this.coinList = this.coinListCompleta.slice(); // Cópia da lista completa
-  //       this.totalMoedas = this.coinList.length; // Definir o total de moedas
-  //     }),
-  //     catchError((error) => {
-  //       return throwError(() => error);
-  //     }),
-  //     finalize(() => {
-  //       this.loading = false;
-  //     })
-  //   ).subscribe();
-  // }
-
   carregarCoinList() {
     this.coinService.getCoins().subscribe({
       next: (coins: Coin[]) => {
@@ -55,29 +32,12 @@ export class CoinListComponent implements OnInit {
         this.totalMoedas = this.coinList.length;
         this.loading = false;
       },
-      error: (error) => { 
+      error: (error) => {
         console.log(error);
         this.loading = false;
       }
     });
   }
-
-  // this.http.get<any>(this.apiUrl).pipe(
-  //   map((response) => {
-  //     this.coinListCompleta = Object.keys(response.symbols).map((key) => ({
-  //       code: key,
-  //       description: response.symbols[key].description,
-  //     }));
-  //     this.coinList = this.coinListCompleta.slice(); // Cópia da lista completa
-  //     this.totalMoedas = this.coinList.length; // Definir o total de moedas
-  //   }),
-  //   catchError((error) => {
-  //     return throwError(() => error);
-  //   }),
-  //   finalize(() => {
-  //     this.loading = false;
-  //   })
-  // ).subscribe();
 
   buscarCoins() {
     const valorBusca = this.busca.trim().toLowerCase();
