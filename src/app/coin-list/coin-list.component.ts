@@ -45,7 +45,7 @@ export class CoinListComponent implements OnInit {
     if (!valorBusca) {
       this.coinList = this.coinListCompleta.slice(); // Restaurar a lista completa
       this.totalMoedas = this.coinListCompleta.length; // Atualizar o total de moedas
-      this.ordenarPor(this.filtroOrdenacao);
+      // this.ordenarPor(this.filtroOrdenacao);
     } else {
       this.coinList = this.coinListCompleta.filter(coin =>
         this.verificarTexto(coin.code, valorBusca) ||
@@ -58,6 +58,8 @@ export class CoinListComponent implements OnInit {
     if (this.paginaAtual > Math.ceil(this.totalMoedas / this.itensPorPagina)) {
       this.paginaAtual = Math.max(1, Math.ceil(this.totalMoedas / this.itensPorPagina));
     }
+
+    this.ordenarPor(this.filtroOrdenacao);
   }
 
   private verificarTexto(texto: string, valorBusca: string): boolean {
