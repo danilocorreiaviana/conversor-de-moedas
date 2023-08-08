@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Coin } from '../coin-list/Icoin-list';
+import { Coin } from '../../interfaces/coin-list-interface/Icoin-list';
 
 @Injectable({
   providedIn: 'root'
