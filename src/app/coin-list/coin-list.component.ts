@@ -30,10 +30,11 @@ export class CoinListComponent implements OnInit {
         this.coinListCompleta = coins;
         this.coinList = this.coinListCompleta.slice();
         this.totalMoedas = this.coinList.length;
-        this.loading = false;
       },
       error: (error) => {
         console.log(error);
+      },
+      complete: () => {
         this.loading = false;
       }
     });
