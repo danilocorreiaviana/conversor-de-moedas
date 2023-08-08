@@ -1,15 +1,81 @@
+@media (max-width: 767px) {
+    .container-coins {
+        flex-direction: column;
+    }
+
+    mat-form-field {
+        width: 60%;
+    }
+}
+
 .pt {
     padding-top: 80px;
 }
 
-.container-mod {
+.container-coins {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #127369;
     padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
     padding-bottom: 0;
+    background-color: #127369;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.container-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    padding-bottom: 0;
+    background-color: #12736933;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    background-color: #bcbcbc;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: -20px;
+    cursor: pointer;
+}
+
+.container-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.container-button button {
+    width: 200px;
+}
+
+.result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #bcbcbc;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+mat-icon {
+    margin: 0 auto;
+}
+
+mat-error {
+    font-weight: bold;
+    color: yellow;
 }

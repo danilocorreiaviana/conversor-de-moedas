@@ -1,21 +1,61 @@
 <div class="container pt">
   <h2 class="text-center">Conversão de Moedas</h2>
-  <div class="container-mod">
 
-    <mat-form-field appearance="fill">
-      <mat-label class="text-dark">Moeda de origem</mat-label>
-      <mat-select [(ngModel)]="moedaOrigemSelecionada" panelClass="mat-select-panel">
-        <mat-option *ngFor="let moeda of moedasOrigem" [value]="moeda">{{ moeda }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <form [formGroup]="formConverter" (ngSubmit)="submit()">
+    <div class="container-coins">
 
-    <mat-form-field appearance="fill">
-      <mat-label class="text-dark">Moeda de destino</mat-label>
-      <mat-select [(ngModel)]="moedaDestinoSelecionada" panelClass="mat-select-panel" class="text-dark">
-        <mat-option *ngFor="let moeda of moedasDestino" [value]="moeda">{{ moeda }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label class="text-dark">Moeda de origem</mat-label>
+        <mat-select formControlName="moedaOrigem" name="moedaOrigem">
+          <mat-option *ngFor="let moeda of moedas" [value]="moeda">{{ moeda}} </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formConverter.get('moedaOrigem')?.hasError('required')">Campo
+          obrigatório</mat-error>
 
+      </mat-form-field>
+
+      <div class="p-3" title="Inverter moedas">
+        <div class="icon-container" (click)="inverterMoedas()">
+          <mat-icon>swap_horiz</mat-icon>
+        </div>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label class="text-dark">Moeda de destino</mat-label>
+        <mat-select formControlName="moedaDestino" name="moedaDestino">
+          <mat-option *ngFor="let moeda of moedas" [value]="moeda">{{ moeda }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formConverter.get('moedaDestino')?.hasError('required')">Campo
+          obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="container-value">
+      <mat-form-field appearance="fill">
+        <span matPrefix *ngIf="!this.formConverter.value.moedaOrigem" class="p-2 fw-bold"
+          style="color: #127369;">$</span>
+        <span matTextPrefix *ngIf="this.formConverter.value.moedaOrigem" class="p-2 fw-bold"
+          style="color: #127369;">{{this.formConverter.value.moedaOrigem}}</span>
+        <mat-label class="text-dark">Valor da moeda</mat-label>
+        <input matInput class="text-dark" type="number" formControlName="valorConversao" name="valorConversao" min="0">
+        <mat-error *ngIf="formConverter.get('valorConversao')?.hasError('required')">
+          Valor nulo ou inválido
+        </mat-error>
+        <mat-error *ngIf="formConverter.get('valorConversao')?.hasError('min')">Valor deve ser maior que 0</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="container-button">
+      <button type="submit" class="btn btn-success" [disabled]="!formConverter.valid">Converter</button>
+    </div>
+  </form>
+
+  <div *ngIf="isDataReturned" class="result">
+    <p *ngIf="valorMaior>10000">{{valorMaior}}</p>
+    <p> {{ valor }} em {{ simboloOrigem}} equivale a {{valorConvertido}} em {{
+      simboloDestino }} </p><br>
+    <p>Taxa de conversão: {{ taxaConversao }}</p>
   </div>
 
 </div>
