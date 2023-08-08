@@ -6,11 +6,15 @@
 
       <mat-form-field appearance="fill">
         <mat-label class="text-dark">Moeda de origem</mat-label>
-        <mat-select formControlName="moedaOrigem" name="moedaOrigem">
+        <mat-select formControlName="moedaOrigem" name="moedaOrigem" (selectionChange)="clearError()">
           <mat-option *ngFor="let moeda of moedas" [value]="moeda">{{ moeda}} </mat-option>
         </mat-select>
         <mat-error *ngIf="formConverter.get('moedaOrigem')?.hasError('required')">Campo
           obrigatório</mat-error>
+        <mat-error
+          *ngIf="formConverter.get('moedaOrigem')?.hasError('equalCurrencies') && formConverter.get('moedaOrigem')?.value">Moeda
+          não pode ser
+          igual</mat-error>
 
       </mat-form-field>
 
@@ -22,20 +26,24 @@
 
       <mat-form-field appearance="fill">
         <mat-label class="text-dark">Moeda de destino</mat-label>
-        <mat-select formControlName="moedaDestino" name="moedaDestino">
+        <mat-select formControlName="moedaDestino" name="moedaDestino" (selectionChange)="clearError()">
           <mat-option *ngFor="let moeda of moedas" [value]="moeda">{{ moeda }}</mat-option>
         </mat-select>
         <mat-error *ngIf="formConverter.get('moedaDestino')?.hasError('required')">Campo
           obrigatório</mat-error>
+        <mat-error
+          *ngIf="formConverter.get('moedaDestino')?.hasError('equalCurrencies') && formConverter.get('moedaDestino')?.value">Moeda
+          não pode ser
+          igual</mat-error>
+
       </mat-form-field>
     </div>
 
     <div class="container-value">
       <mat-form-field appearance="fill">
-        <span matPrefix *ngIf="!this.formConverter.value.moedaOrigem" class="p-2 fw-bold"
-          style="color: #127369;">$</span>
-        <span matTextPrefix *ngIf="this.formConverter.value.moedaOrigem" class="p-2 fw-bold"
-          style="color: #127369;">{{this.formConverter.value.moedaOrigem}}</span>
+        <span matPrefix *ngIf="!this.formConverter.value.moedaOrigem" class="p-2 fw-bold">$</span>
+        <span matTextPrefix *ngIf="this.formConverter.value.moedaOrigem"
+          class="p-2 fw-bold">{{this.formConverter.value.moedaOrigem}}</span>
         <mat-label class="text-dark">Valor da moeda</mat-label>
         <input matInput class="text-dark" type="number" formControlName="valorConversao" name="valorConversao" min="0">
         <mat-error *ngIf="formConverter.get('valorConversao')?.hasError('required')">
@@ -51,11 +59,20 @@
     </div>
   </form>
 
-  <div *ngIf="isDataReturned" class="result">
+  <div *ngIf="loading" class="text-center mt-3">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Convertendo...</p>
+  </div>
+
+  <div *ngIf="isDataReturned && !loading" class="result">
     <p *ngIf="valorMaior>10000">{{valorMaior}}</p>
-    <p> {{ valor }} em {{ simboloOrigem}} equivale a {{valorConvertido}} em {{
-      simboloDestino }} </p><br>
-    <p>Taxa de conversão: {{ taxaConversao }}</p>
+    <p> <strong>Resultado:</strong> {{ valor }} em <strong>{{ simboloOrigem}}</strong> equivale a {{valorConvertido}} em
+      <strong>{{
+        simboloDestino }}</strong>
+    </p>
+    <p><strong> Taxa de conversão: </strong> {{ taxaConversao }}</p>
   </div>
 
 </div>

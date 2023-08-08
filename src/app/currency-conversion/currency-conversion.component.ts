@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { CoinListService } from '../service/coin-list-service/coin-list.service';
 import { CurrencyConversionService } from '../service/currency-service/currency-conversion.service';
 import CurrencyConversion from '../interfaces/currency-conversion-interface/Icurrency-conversion';
@@ -14,6 +14,7 @@ export class CurrencyConversionComponent implements OnInit {
   moedas: string[] = [];
   responseData!: CurrencyConversion;
   isDataReturned!: boolean;
+  loading!: boolean;
   valorMaior!: number;
   simboloOrigem!: string;
   simboloDestino!: string;
@@ -21,10 +22,14 @@ export class CurrencyConversionComponent implements OnInit {
   valorConvertido!: number;
   taxaConversao!: number
   formConverter: FormGroup = this.formBuilder.group({
-    moedaOrigem: ['', [Validators.required]],
-    moedaDestino: ['', [Validators.required]],
+    moedaOrigem: ['', [Validators.required, this.moedaValidate]],
+    moedaDestino: ['', [Validators.required, this.moedaValidate]],
     valorConversao: ['', [Validators.required, Validators.min(1)]],
-  });;
+  });
+  // moedaOrigemControle: any = this.formConverter.get('moedaDestino');
+  // moedaDestinoControle: any = this.formConverter.get('moedaDestino');
+  // moedaOrigemTexto: string = this.moedaOrigemControle?.value;
+  // moedaDestinoTexto: string = this.moedaDestinoControle?.value;
 
   constructor(private formBuilder: FormBuilder, private coinService: CoinListService, private currencyService: CurrencyConversionService) { }
 
@@ -56,6 +61,7 @@ export class CurrencyConversionComponent implements OnInit {
   }
 
   converter(from: string, to: string, amount: number) {
+    this.loading = true;
     this.currencyService.converter(from, 'USD', amount).subscribe({
       next: (data: CurrencyConversion) => {
         this.responseData = data;
@@ -69,12 +75,15 @@ export class CurrencyConversionComponent implements OnInit {
             this.simboloOrigem = this.responseData.query.from;
             this.simboloDestino = this.responseData.query.to;
             this.valor = this.responseData.query.amount;
-            this.valorConvertido = +(this.responseData.result).toFixed(2);
-            this.taxaConversao = +(this.responseData.info.rate).toFixed(2);
+            this.valorConvertido = +(this.responseData.result).toFixed(4);
+            this.taxaConversao = +(this.responseData.info.rate).toFixed(4);
           },
-          error: (error: Error) => console.log(error),
+          error: (error: Error) => {
+            console.log(error);
+          },
           complete: () => {
             this.isDataReturned = true;
+            this.loading = false;
           },
         });
       },
@@ -85,11 +94,57 @@ export class CurrencyConversionComponent implements OnInit {
     });
   }
 
-  inverterMoedas() {
-    const moedaOrigemValue = this.formConverter.get('moedaOrigem')?.value;
-    const moedaDestinoValue = this.formConverter.get('moedaDestino')?.value;
-
-    this.formConverter.get('moedaOrigem')?.setValue(moedaDestinoValue);
-    this.formConverter.get('moedaDestino')?.setValue(moedaOrigemValue);
+  reativarValidacao(value1: any, value2: any) {
+    value1?.updateValueAndValidity();
+    value2?.updateValueAndValidity();
   }
+
+  inverterMoedas() {
+    const moedaOrigemControl = this.formConverter.get('moedaOrigem');
+    const moedaDestinoControl = this.formConverter.get('moedaDestino');
+
+    const moedaOrigemValue = moedaOrigemControl?.value;
+    const moedaDestinoValue = moedaDestinoControl?.value;
+
+    if (moedaOrigemValue === moedaDestinoValue) {
+      console.log("Não é possível inverter! Moedas iguais.");
+    } else {
+      moedaOrigemControl?.setValue(moedaDestinoValue);
+      moedaDestinoControl?.setValue(moedaOrigemValue);
+
+      this.reativarValidacao(moedaOrigemControl, moedaDestinoControl);
+    }
+
+  }
+
+  moedaValidate(control: AbstractControl) {
+    let moedaDestino = control.parent?.get('moedaDestino')?.value;
+    let moedaOrigem = control.parent?.get('moedaOrigem')?.value;
+
+    if (moedaOrigem === moedaDestino) {
+      return { equalCurrencies: true };
+
+    }
+    return null;
+  }
+
+  clearError() {
+    const moedaOrigemControl = this.formConverter.get('moedaOrigem');
+    const moedaDestinoControl = this.formConverter.get('moedaDestino');
+
+    const moedaOrigemValue = moedaOrigemControl?.value;
+    const moedaDestinoValue = moedaDestinoControl?.value;
+
+    if (moedaOrigemValue !== moedaDestinoValue) {
+      moedaOrigemControl?.setErrors(moedaDestinoValue);
+      moedaDestinoControl?.setErrors(moedaOrigemValue);
+
+      this.reativarValidacao(moedaOrigemControl, moedaDestinoControl);
+
+    }
+
+  }
+
+
+
 }
