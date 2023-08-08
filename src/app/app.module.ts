@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +17,7 @@ import { CoinListComponent } from './coin-list/coin-list.component';
 import { FooterComponent } from './footer/footer.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 @NgModule({
   declarations: [
@@ -33,11 +34,13 @@ import { MatInputModule } from '@angular/material/input';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     NgxPaginationModule,
     MatIconModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule
 
   ],
   providers: [],
