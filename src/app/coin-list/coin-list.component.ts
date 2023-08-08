@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Coin } from './Icoin-list';
-import { CoinListService } from '../service/api.service';
+import { Coin } from '../interfaces/coin-list-interface/Icoin-list';
+import { CoinListService } from '../service/coin-list-service/coin-list.service';
 
 @Component({
   selector: 'app-coin-list',
