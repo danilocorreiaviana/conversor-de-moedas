@@ -24,7 +24,7 @@ export class CurrencyConversionComponent implements OnInit {
   formConverter: FormGroup = this.formBuilder.group({
     moedaOrigem: ['', [Validators.required, this.moedaValidate]],
     moedaDestino: ['', [Validators.required, this.moedaValidate]],
-    valorConversao: ['', [Validators.required, Validators.min(1)]],
+    valorConversao: ['', [Validators.required, Validators.min(0.01)]],
   });
   // moedaOrigemControle: any = this.formConverter.get('moedaDestino');
   // moedaDestinoControle: any = this.formConverter.get('moedaDestino');
@@ -47,6 +47,10 @@ export class CurrencyConversionComponent implements OnInit {
       }
     }
     );
+  }
+
+  onEnterKeyPressed(event: any): void {
+    event.target.blur();
   }
 
   submit() {
@@ -75,8 +79,8 @@ export class CurrencyConversionComponent implements OnInit {
             this.simboloOrigem = this.responseData.query.from;
             this.simboloDestino = this.responseData.query.to;
             this.valor = this.responseData.query.amount;
-            this.valorConvertido = +(this.responseData.result).toFixed(4);
-            this.taxaConversao = +(this.responseData.info.rate).toFixed(4);
+            this.valorConvertido = +(this.responseData.result);
+            this.taxaConversao = +(this.responseData.info.rate);
           },
           error: (error: Error) => {
             console.log(error);

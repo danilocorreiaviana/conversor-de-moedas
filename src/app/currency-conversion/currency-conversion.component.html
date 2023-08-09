@@ -45,7 +45,10 @@
         <span matTextPrefix *ngIf="this.formConverter.value.moedaOrigem"
           class="p-2 fw-bold">{{this.formConverter.value.moedaOrigem}}</span>
         <mat-label class="text-dark">Valor da moeda</mat-label>
-        <input matInput class="text-dark" type="number" formControlName="valorConversao" name="valorConversao" min="0">
+        <input matInput currencyMask class="text-dark" formControlName="valorConversao" name="valorConversao"
+          step="0.01" placeholder="Ex.: 0.01" [options]="{align: 'left', prefix: '' }" inputmode="numeric"
+          (keydown.enter)="onEnterKeyPressed($event)" autocomplete="off" aria-valuemin="0.01">
+        <!-- <input matInput class="text-dark" type="number" formControlName="valorConversao" name="valorConversao" min="0"> -->
         <mat-error *ngIf="formConverter.get('valorConversao')?.hasError('required')">
           Valor nulo ou inválido
         </mat-error>
