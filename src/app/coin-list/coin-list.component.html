@@ -6,7 +6,8 @@
     <mat-form-field appearance="fill" class="busca">
       <mat-icon matPrefix>search</mat-icon>
       <mat-label class="text-dark">Buscar moedas</mat-label>
-      <input matInput [(ngModel)]="busca" (input)="buscarCoins()" #inputElement (keydown.enter)="inputElement.blur()">
+      <input matInput [(ngModel)]="busca" (input)="buscarCoins()" #inputElement (keydown.enter)="inputElement.blur()"
+        placeholder="Ex.: BRL ou Brazilian Real">
       <mat-icon (click)='limparBusca()' *ngIf="busca" matSuffix>close</mat-icon>
     </mat-form-field>
 
@@ -24,7 +25,7 @@
     <p>Nenhuma moeda encontrada com a busca realizada.</p>
   </div>
 
-  <table class="table mt-4 table-rounded" *ngIf="!loading">
+  <table class="table mt-4 table-rounded" *ngIf="!loading && coinList.length !== 0">
     <thead>
       <tr>
         <th class="text-center thread-color">Símbolo
@@ -50,7 +51,7 @@
     </tbody>
   </table>
 
-  <div class="container-mod">
+  <div class="container-mod" *ngIf="!loading && coinList.length !== 0">
     <mat-form-field appearance="fill" class="itens">
       <mat-label class="text-dark">Itens por página:</mat-label>
       <mat-select [(ngModel)]="itensPorPagina" (selectionChange)="atualizarPaginacao(1)">
