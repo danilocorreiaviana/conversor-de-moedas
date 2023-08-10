@@ -12,6 +12,10 @@
     padding-top: 80px;
 }
 
+.pb {
+    padding-bottom: 30px;
+}
+
 .container-coins {
     display: flex;
     justify-content: center;
@@ -58,6 +62,7 @@
 
 .container-button button {
     width: 200px;
+    padding: 15px;
 }
 
 .result {
@@ -69,14 +74,30 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 1.5;
-    background-color: #e0dbdb;
+    background-color: #e0e0e0;
     color: #127369;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.5;
+    background-color: #e0e0e0;
+    color: red;
     padding: 30px;
     border-radius: 5px;
 }
 
 mat-icon {
     margin: 0 auto;
+    cursor: pointer;
 }
 
 mat-error {

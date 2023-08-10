@@ -1,4 +1,4 @@
-<div class="container pt">
+<div class="container pt pb">
   <h2 class="text-center">Conversão de Moedas</h2>
 
   <form [formGroup]="formConverter" (ngSubmit)="submit()">
@@ -7,7 +7,11 @@
       <mat-form-field appearance="fill">
         <mat-label class="text-dark">Moeda de origem</mat-label>
         <mat-select formControlName="moedaOrigem" name="moedaOrigem" (selectionChange)="clearError()">
-          <mat-option *ngFor="let moeda of moedas" [value]="moeda">{{ moeda}} </mat-option>
+          <mat-option *ngFor="let moeda of moedas" [value]="moeda.code" title="{{ moeda.description }}">({{
+            moeda.code
+            }}) - {{
+            moeda.description
+            }}</mat-option>
         </mat-select>
         <mat-error *ngIf="formConverter.get('moedaOrigem')?.hasError('required')">Campo
           obrigatório</mat-error>
@@ -27,7 +31,11 @@
       <mat-form-field appearance="fill">
         <mat-label class="text-dark">Moeda de destino</mat-label>
         <mat-select formControlName="moedaDestino" name="moedaDestino" (selectionChange)="clearError()">
-          <mat-option *ngFor="let moeda of moedas" [value]="moeda">{{ moeda }}</mat-option>
+          <mat-option *ngFor="let moeda of moedas" [value]="moeda.code" title="{{ moeda.description }}">({{
+            moeda.code
+            }}) - {{
+            moeda.description
+            }}</mat-option>
         </mat-select>
         <mat-error *ngIf="formConverter.get('moedaDestino')?.hasError('required')">Campo
           obrigatório</mat-error>
@@ -42,13 +50,14 @@
     <div class="container-value">
       <mat-form-field appearance="fill">
         <span matPrefix *ngIf="!this.formConverter.value.moedaOrigem" class="p-2 fw-bold">$</span>
-        <span matTextPrefix *ngIf="this.formConverter.value.moedaOrigem"
+        <span matTextPrefix title="{{ getDescricao(formConverter.get('moedaOrigem')?.value) }}"
+          *ngIf="this.formConverter.value.moedaOrigem"
           class="p-2 fw-bold">{{this.formConverter.value.moedaOrigem}}</span>
         <mat-label class="text-dark">Valor da moeda</mat-label>
         <input matInput currencyMask class="text-dark" formControlName="valorConversao" name="valorConversao"
-          step="0.01" placeholder="Ex.: 0.01" [options]="{align: 'left', prefix: '' }" inputmode="numeric"
-          (keydown.enter)="onEnterKeyPressed($event)" autocomplete="off" aria-valuemin="0.01">
-        <!-- <input matInput class="text-dark" type="number" formControlName="valorConversao" name="valorConversao" min="0"> -->
+          step="0.01" placeholder="Ex.: 0.01" [options]="{align: 'left', prefix: '' }" inputmode="numeric" #inputElement
+          (keydown.enter)="inputElement.blur()" autocomplete="off" aria-valuemin="0.01">
+        <mat-icon (click)='limparValor()' *ngIf="this.formConverter.value.valorConversao" matSuffix>close</mat-icon>
         <mat-error *ngIf="formConverter.get('valorConversao')?.hasError('required')">
           Valor nulo ou inválido
         </mat-error>
@@ -58,7 +67,7 @@
 
 
     <div class="container-button">
-      <button type="submit" class="btn btn-success" [disabled]="!formConverter.valid">Converter</button>
+      <button type="submit" class="btn btn-success" [disabled]="!formConverter.valid">CONVERTER</button>
     </div>
   </form>
 
@@ -76,6 +85,10 @@
         simboloDestino }}</strong>
     </p>
     <p><strong> Taxa de conversão: </strong> {{ taxaConversao }}</p>
+  </div>
+
+  <div *ngIf="msgError && !loading" class="error">
+    <p>Ocorreu um erro inesperado, tente novamente!</p>
   </div>
 
 </div>

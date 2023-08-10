@@ -11,7 +11,9 @@ import CurrencyConversion from '../interfaces/currency-conversion-interface/Icur
   providers: [CurrencyConversionService]
 })
 export class CurrencyConversionComponent implements OnInit {
-  moedas: string[] = [];
+  moedas: any[] = [];
+  code!: string;
+  description!: string[];
   responseData!: CurrencyConversion;
   isDataReturned!: boolean;
   loading!: boolean;
@@ -26,10 +28,7 @@ export class CurrencyConversionComponent implements OnInit {
     moedaDestino: ['', [Validators.required, this.moedaValidate]],
     valorConversao: ['', [Validators.required, Validators.min(0.01)]],
   });
-  // moedaOrigemControle: any = this.formConverter.get('moedaDestino');
-  // moedaDestinoControle: any = this.formConverter.get('moedaDestino');
-  // moedaOrigemTexto: string = this.moedaOrigemControle?.value;
-  // moedaDestinoTexto: string = this.moedaDestinoControle?.value;
+  msgError!: string;
 
   constructor(private formBuilder: FormBuilder, private coinService: CoinListService, private currencyService: CurrencyConversionService) { }
 
@@ -37,20 +36,21 @@ export class CurrencyConversionComponent implements OnInit {
     this.carregarMoedas();
   }
 
+  getDescricao(code: string): string {
+    const coin = this.moedas.find(coin => coin.code === code);
+    return coin ? coin.description : '';
+  }
+
   carregarMoedas() {
     this.coinService.getCoins().subscribe({
       next: (coins) => {
-        this.moedas = coins.map(coin => coin.code);
+        this.moedas = coins;
       },
       error: (error) => {
         console.error('Erro ao carregar moedas:', error);
       }
     }
     );
-  }
-
-  onEnterKeyPressed(event: any): void {
-    event.target.blur();
   }
 
   submit() {
@@ -84,18 +84,31 @@ export class CurrencyConversionComponent implements OnInit {
           },
           error: (error: Error) => {
             console.log(error);
+            this.loading = false;
+            this.msgError = error.name;
           },
           complete: () => {
             this.isDataReturned = true;
             this.loading = false;
+            this.msgError = '';
           },
         });
       },
-      error: (error: Error) => console.log(error),
+      error: (error: Error) => {
+        console.log(error);
+        this.loading = false;
+        this.msgError = error.name;
+      },
       complete: () => {
         this.isDataReturned = true;
+        // this.loading = false;
+        // this.msgError = '';
       },
     });
+  }
+
+  limparValor() {
+    this.formConverter.get('valorConversao')?.setValue('');
   }
 
   reativarValidacao(value1: any, value2: any) {
@@ -110,7 +123,7 @@ export class CurrencyConversionComponent implements OnInit {
     const moedaOrigemValue = moedaOrigemControl?.value;
     const moedaDestinoValue = moedaDestinoControl?.value;
 
-    if (moedaOrigemValue === moedaDestinoValue) {
+    if (moedaOrigemValue === moedaDestinoValue || (!moedaOrigemValue || !moedaDestinoValue)) {
       console.log("Não é possível inverter! Moedas iguais.");
     } else {
       moedaOrigemControl?.setValue(moedaDestinoValue);
@@ -148,7 +161,5 @@ export class CurrencyConversionComponent implements OnInit {
     }
 
   }
-
-
 
 }
