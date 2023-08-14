@@ -6,4 +6,5 @@ export default interface HistoryInterface {
     originCurrency: string;
     destinyCurrency: string;
     rate: number;
+    highValue: boolean;
   }
