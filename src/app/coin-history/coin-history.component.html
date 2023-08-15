@@ -1,3 +1,42 @@
-<div class="container pt">
+<div class="container pt pb">
   <h2 class="text-center">Histórico de Conversões</h2>
+  <div class="text-center no-history" *ngIf="history.length === 0">
+    <mat-icon> history icon</mat-icon>
+    <p>Não há histórico de conversão!</p>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-rounded" *ngIf="history.length !== 0">
+      <thead>
+        <tr class="text-center">
+          <th class="thread-color">Data</th>
+          <th class="thread-color">Hora</th>
+          <th class="thread-color">Valor</th>
+          <th class="thread-color">Moeda Origem</th>
+          <th class="thread-color">Moeda Destino</th>
+          <th class="thread-color">Resultado</th>
+          <th class="thread-color">Taxa</th>
+          <th class="thread-color">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngFor="let item of history; let i = index">
+          <td>{{ item.date }}</td>
+          <td>{{ item.time }}</td>
+          <td>{{ item.input }}</td>
+          <td>{{ item.originCurrency }}</td>
+          <td>{{ item.destinyCurrency }}</td>
+          <td>{{ item.output }} <mat-icon title="Valor maior que 10000 dólares" *ngIf="item.highValue"
+              class="highvalue">attach_money</mat-icon>
+          </td>
+          <td>{{ item.rate }}</td>
+          <td>
+            <mat-icon color="warn" class="delete" (click)="excluir(i)" title="Deletar conversão">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center mt-4" *ngIf="history.length > 1">
+    <button class="btn btn-danger" (click)="excluirTudo()" title="Deletar histórico">Limpar tudo</button>
+  </div>
 </div>

@@ -15,10 +15,10 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { CoinListComponent } from './coin-list/coin-list.component';
+import { CoinHistoryComponent } from './coin-history/coin-history.component';
 import { FooterComponent } from './footer/footer.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
 import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     HomeComponent,
     CoinListComponent,
     FooterComponent,
-    CurrencyConversionComponent
+    CurrencyConversionComponent,
+    CoinHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     MatIconModule,
     MatSelectModule,
     MatInputModule,
-    MatAutocompleteModule,
     CurrencyMaskModule
 
   ],
