@@ -6,12 +6,12 @@
 
       <mat-form-field appearance="fill">
         <mat-label class="text-dark">Moeda de origem</mat-label>
-        <mat-select formControlName="moedaOrigem" name="moedaOrigem" (selectionChange)="clearError()">
-          <mat-option *ngFor="let moeda of moedas" [value]="moeda.code" title="{{ moeda.description }}">({{
+        <mat-select formControlName="moedaOrigem" name="moedaOrigem" (selectionChange)="limparErro()">
+          <mat-option *ngFor="let moeda of moedas" [value]="moeda.code" title="{{ moeda.description }}">{{
             moeda.code
-            }}) - {{
+            }} — {{
             moeda.description
-            }}</mat-option>
+            }} </mat-option>
         </mat-select>
         <mat-error *ngIf="formConverter.get('moedaOrigem')?.hasError('required')">Campo
           obrigatório</mat-error>
@@ -30,10 +30,10 @@
 
       <mat-form-field appearance="fill">
         <mat-label class="text-dark">Moeda de destino</mat-label>
-        <mat-select formControlName="moedaDestino" name="moedaDestino" (selectionChange)="clearError()">
-          <mat-option *ngFor="let moeda of moedas" [value]="moeda.code" title="{{ moeda.description }}">({{
+        <mat-select formControlName="moedaDestino" name="moedaDestino" (selectionChange)="limparErro()">
+          <mat-option *ngFor="let moeda of moedas" [value]="moeda.code" title="{{ moeda.description }}">{{
             moeda.code
-            }}) - {{
+            }} — {{
             moeda.description
             }}</mat-option>
         </mat-select>
@@ -79,7 +79,6 @@
   </div>
 
   <div *ngIf="isDataReturned && !loading" class="result">
-    <p *ngIf="valorMaior>10000">{{valorMaior}}</p>
     <p> <strong>Resultado:</strong> {{ valor }} em <strong>{{ simboloOrigem}}</strong> equivale a {{valorConvertido}} em
       <strong>{{
         simboloDestino }}</strong>

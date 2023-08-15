@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { CoinListService } from '../service/coin-list-service/coin-list.service';
 import { CurrencyConversionService } from '../service/currency-service/currency-conversion.service';
 import CurrencyConversion from '../interfaces/currency-conversion-interface/Icurrency-conversion';
+import HistoryInterface from '../interfaces/coin-history-interface/Icoin-history';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -29,11 +30,18 @@ export class CurrencyConversionComponent implements OnInit {
     valorConversao: ['', [Validators.required, Validators.min(0.01)]],
   });
   msgError!: string;
+  isValorMaior: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private coinService: CoinListService, private currencyService: CurrencyConversionService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private coinService: CoinListService,
+    private currencyService: CurrencyConversionService,
+
+  ) { }
 
   ngOnInit(): void {
     this.carregarMoedas();
+    this.obterHistorico();
   }
 
   getDescricao(code: string): string {
@@ -51,6 +59,48 @@ export class CurrencyConversionComponent implements OnInit {
       }
     }
     );
+  }
+
+  obterHistorico() {
+    let historyData = localStorage.getItem('historico_info');
+    if (historyData) {
+      return JSON.parse(historyData);
+    } else {
+      return [];
+    }
+  }
+
+  salvarHistorico(history: HistoryInterface) {
+    let historyData = this.obterHistorico();
+    historyData.push(history);
+    localStorage.setItem('historico_info', JSON.stringify(historyData));
+  }
+
+  armazenarDados() {
+    let date = new Date();
+    let dia = date.getDate();
+    let mes = (date.getMonth() + 1).toString().padStart(2, '0');
+    let ano = date.getFullYear();
+    let hora = date.getHours();
+    let min = date.getMinutes().toString().padStart(2, '0');
+
+    let currentDate =
+      dia + '/' + mes + '/' + ano;
+    let currentTime =
+      hora + ':' + min;
+
+    let historicoInfo: HistoryInterface = {
+      date: currentDate,
+      time: currentTime,
+      input: this.valor,
+      output: this.valorConvertido,
+      originCurrency: this.simboloOrigem,
+      destinyCurrency: this.simboloDestino,
+      rate: this.taxaConversao,
+      highValue: this.isValorMaior
+    };
+
+    this.salvarHistorico(historicoInfo)
   }
 
   submit() {
@@ -71,6 +121,7 @@ export class CurrencyConversionComponent implements OnInit {
         this.responseData = data;
         this.valorMaior = this.responseData.result;
         if (this.valorMaior > 10000) {
+          this.isValorMaior = true;
           console.log('O valor convertido é maior que 10000 dólares.');
         }
         this.currencyService.converter(from, to, amount).subscribe({
@@ -81,6 +132,9 @@ export class CurrencyConversionComponent implements OnInit {
             this.valor = this.responseData.query.amount;
             this.valorConvertido = +(this.responseData.result);
             this.taxaConversao = +(this.responseData.info.rate);
+            this.armazenarDados();
+            this.isValorMaior = false;
+
           },
           error: (error: Error) => {
             console.log(error);
@@ -145,7 +199,7 @@ export class CurrencyConversionComponent implements OnInit {
     return null;
   }
 
-  clearError() {
+  limparErro() {
     const moedaOrigemControl = this.formConverter.get('moedaOrigem');
     const moedaDestinoControl = this.formConverter.get('moedaDestino');
 
