@@ -19,6 +19,9 @@ import { CoinHistoryComponent } from './coin-history/coin-history.component';
 import { FooterComponent } from './footer/footer.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { MatInputModule } from '@angular/material/input';
     CoinListComponent,
     FooterComponent,
     CurrencyConversionComponent,
-    CoinHistoryComponent
+    CoinHistoryComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatSelectModule,
     MatInputModule,
+    MatDialogModule,
     CurrencyMaskModule
 
   ],

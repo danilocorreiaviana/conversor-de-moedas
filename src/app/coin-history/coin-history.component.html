@@ -30,13 +30,14 @@
           </td>
           <td>{{ item.rate }}</td>
           <td>
-            <mat-icon color="warn" class="delete" (click)="excluir(i)" title="Deletar conversão">delete</mat-icon>
+            <mat-icon color="warn" class="delete" (click)="exibirDialogoExclusaoConversao(i)"
+              title="Deletar conversão">delete</mat-icon>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="text-center mt-4" *ngIf="history.length > 1">
-    <button class="btn btn-danger" (click)="excluirTudo()" title="Deletar histórico">Limpar tudo</button>
+    <button class="btn btn-danger" (click)="exibirDialogoExclusaoTodo()" title="Deletar histórico">Limpar tudo</button>
   </div>
 </div>
