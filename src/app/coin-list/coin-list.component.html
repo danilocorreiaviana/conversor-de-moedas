@@ -30,15 +30,19 @@
       <tr>
         <th class="text-center thread-color">Símbolo
           <mat-icon [ngStyle]="{'color': filtroOrdenacao === 'symbolAsc' ? 'yellow' : 'white'}"
-            (click)="ordenarPor('symbolAsc')" class="mat-icon-rtl-mirror">arrow_upward</mat-icon>
+            (click)="ordenarPor('symbolAsc')" class="mat-icon-rtl-mirror"
+            title="Ordem crescente">arrow_upward</mat-icon>
           <mat-icon [ngStyle]="{'color': filtroOrdenacao === 'symbolDesc' ? 'yellow' : 'white'}"
-            (click)="ordenarPor('symbolDesc')" class="mat-icon-rtl-mirror">arrow_downward</mat-icon>
+            (click)="ordenarPor('symbolDesc')" class="mat-icon-rtl-mirror"
+            title="Ordem decrescente">arrow_downward</mat-icon>
         </th>
         <th class="thread-color">Descrição
           <mat-icon [ngStyle]="{'color': filtroOrdenacao === 'descriptionAsc' ? 'yellow' : 'white'}"
-            (click)="ordenarPor('descriptionAsc')" class="mat-icon-rtl-mirror">arrow_upward</mat-icon>
+            (click)="ordenarPor('descriptionAsc')" class="mat-icon-rtl-mirror"
+            title="Ordem crescente">arrow_upward</mat-icon>
           <mat-icon [ngStyle]="{'color': filtroOrdenacao === 'descriptionDesc' ? 'yellow' : 'white'}"
-            (click)="ordenarPor('descriptionDesc')" class="mat-icon-rtl-mirror">arrow_downward</mat-icon>
+            (click)="ordenarPor('descriptionDesc')" class="mat-icon-rtl-mirror"
+            title="Ordem decrescente">arrow_downward</mat-icon>
         </th>
       </tr>
     </thead>
