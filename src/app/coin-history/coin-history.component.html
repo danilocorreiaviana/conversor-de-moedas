@@ -1,4 +1,5 @@
 <div class="container pt pb">
+
   <h2 class="text-center">Histórico de Conversões</h2>
   <div class="text-center no-history" *ngIf="history.length === 0">
     <mat-icon> history icon</mat-icon>
@@ -42,20 +43,38 @@
 
     <div class="ordenar">
       <span><strong>Hora: </strong> <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('TimeAsc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'TimeAsc' ? 'yellow' : 'white'}">arrow_upward</mat-icon>
+          [ngStyle]="{'color': filtroOrdenacao === 'TimeAsc' ? 'yellow' : 'white'}"
+          title="Ordem crescente">arrow_upward</mat-icon>
         <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('TimeDesc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'TimeDesc' ? 'yellow' : 'white'}">arrow_downward</mat-icon>
+          [ngStyle]="{'color': filtroOrdenacao === 'TimeDesc' ? 'yellow' : 'white'}"
+          title="Ordem decrescente">arrow_downward</mat-icon>
       </span>
       <span><strong>Resultado: </strong> <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('OutputAsc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'OutputAsc' ? 'yellow' : 'white'}">arrow_upward</mat-icon>
+          [ngStyle]="{'color': filtroOrdenacao === 'OutputAsc' ? 'yellow' : 'white'}"
+          title="Ordem crescente">arrow_upward</mat-icon>
         <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('OutputDesc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'OutputDesc' ? 'yellow' : 'white'}">arrow_downward</mat-icon>
+          [ngStyle]="{'color': filtroOrdenacao === 'OutputDesc' ? 'yellow' : 'white'}"
+          title="Ordem decrescente">arrow_downward</mat-icon>
       </span>
     </div>
   </div>
 
   <div class="text-center mt-4" *ngIf="history.length > 1">
     <button class="btn btn-danger" (click)="exibirDialogoExclusaoTodo()" title="Deletar histórico">Limpar tudo</button>
+  </div>
+
+  <div class="d-flex justify-content-center fixed-bottom" *ngIf="historyDelete === true">
+    <div class="alert alert-info fade show" role="alert">
+      <mat-icon class="mr-2 check-circle">check_circle</mat-icon>
+      Histório removido com sucesso!
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center fixed-bottom" *ngIf="conversionDelete === true">
+    <div class="alert alert-info fade show" role="alert">
+      <mat-icon class="mr-2 check-circle">check_circle</mat-icon>
+      Conversão removida com sucesso!
+    </div>
   </div>
 
 </div>

@@ -10,6 +10,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class CoinHistoryComponent {
   history: HistoryInterface[] = [];
   filtroOrdenacao: string = 'TimeAsc';
+  historyDelete: boolean = false;
+  conversionDelete: boolean = false;
 
   constructor(private dialog: MatDialog) { }
 
@@ -72,12 +74,21 @@ export class CoinHistoryComponent {
   excluir(index: number) {
     this.history.splice(index, 1);
     localStorage.setItem('historico_info', JSON.stringify(this.history));
+    this.conversionDelete = true;
+    setTimeout(() => {
+      this.conversionDelete = false;
+    }, 2000);
     console.log("Conversão removida com sucesso!")
   }
 
   excluirTudo() {
     localStorage.removeItem('historico_info');
     this.obterHistorico();
+    this.historyDelete = true;
+    setTimeout(() => {
+      this.historyDelete = false;
+    }, 2000);
     console.log("Histórico de conversão apagado com sucesso!")
   }
+
 }

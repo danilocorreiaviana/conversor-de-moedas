@@ -61,7 +61,45 @@
     margin-left: 10px;
 }
 
-mat-icon {
+.mat-icon-rtl-mirror,
+.close {
     cursor: pointer;
     vertical-align: middle;
+}
+
+.check-circle {
+    vertical-align: middle;
+}
+
+.alert {
+    max-width: 400px;
+}
+
+.alert.fade.show {
+    animation: fadeIn 0.5s;
+}
+
+.alert.fade {
+    animation: fadeOut 0.5s;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
