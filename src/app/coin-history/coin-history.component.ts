@@ -9,6 +9,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 })
 export class CoinHistoryComponent {
   history: HistoryInterface[] = [];
+  filtroOrdenacao: string = 'TimeAsc';
 
   constructor(private dialog: MatDialog) { }
 
@@ -23,6 +24,20 @@ export class CoinHistoryComponent {
     } else {
       this.history = [];
     }
+  }
+
+  OrdenarHistorico(filtro: string) {
+    this.filtroOrdenacao = filtro;
+    if (filtro === "TimeAsc") {
+      this.history.sort((a, b) => a.time.localeCompare(b.time))
+    } else if (filtro === "TimeDesc") {
+      this.history.sort((a, b) => b.time.localeCompare(a.time))
+    } else if (filtro === "OutputAsc") {
+      this.history.sort((a, b) => a.output - b.output);
+    } else if (filtro === "OutputDesc") {
+      this.history.sort((a, b) => b.output - a.output);
+    }
+
   }
 
   getData(key: string): any {

@@ -43,3 +43,25 @@
 .delete {
     cursor: pointer;
 }
+
+.ordenar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #127369;
+    color: #fff;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding-bottom: 20px;
+}
+
+.ordenar span {
+    margin-left: 10px;
+}
+
+mat-icon {
+    cursor: pointer;
+    vertical-align: middle;
+}
