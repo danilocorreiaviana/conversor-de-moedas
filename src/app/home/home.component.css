@@ -8,13 +8,6 @@
 
 }
 
-@media (max-width: 280px) {
-    img {
-        width: 150px;
-        height: 125px;
-    }
-}
-
 @media (max-height:600px) {
     .container {
         padding-top: 350px;
@@ -72,4 +65,11 @@ p {
 a {
     text-decoration: none;
     color: black;
+}
+
+@media (max-width: 280px) {
+    img {
+        width: 150px;
+        height: 125px;
+    }
 }

@@ -8,6 +8,13 @@
     }
 }
 
+@media (max-width: 280px) {
+
+    mat-form-field {
+        width: 80%;
+    }
+}
+
 .pt {
     padding-top: 80px;
 }
