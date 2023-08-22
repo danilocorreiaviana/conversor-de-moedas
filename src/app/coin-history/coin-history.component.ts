@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrls: ['./coin-history.component.css']
 })
 export class CoinHistoryComponent {
+  title = 'Histórico de Conversões';
   history: HistoryInterface[] = [];
   filtroOrdenacao: string = 'TimeAsc';
   historyDelete: boolean = false;

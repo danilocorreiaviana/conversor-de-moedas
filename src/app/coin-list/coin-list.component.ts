@@ -8,6 +8,7 @@ import { CoinListService } from '../service/coin-list-service/coin-list.service'
   styleUrls: ['./coin-list.component.css']
 })
 export class CoinListComponent implements OnInit {
+  title = 'Listagem de Moedas';
   coinList: Coin[] = [];
   coinListCompleta: Coin[] = [];
   totalMoedas: number = 0;

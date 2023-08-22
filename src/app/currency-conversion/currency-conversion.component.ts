@@ -12,6 +12,7 @@ import HistoryInterface from '../interfaces/coin-history-interface/Icoin-history
   providers: [CurrencyConversionService]
 })
 export class CurrencyConversionComponent implements OnInit {
+  title = 'Conversão de Moedas';
   moedas: any[] = [];
   code!: string;
   description!: string[];
@@ -42,6 +43,7 @@ export class CurrencyConversionComponent implements OnInit {
   ngOnInit(): void {
     this.carregarMoedas();
     this.obterHistorico();
+    this.formConverter;
   }
 
   getDescricao(code: string): string {
@@ -78,10 +80,10 @@ export class CurrencyConversionComponent implements OnInit {
 
   armazenarDados() {
     let date = new Date();
-    let dia = date.getDate();
+    let dia = date.getDate().toString().padStart(2, '0');
     let mes = (date.getMonth() + 1).toString().padStart(2, '0');
     let ano = date.getFullYear();
-    let hora = date.getHours();
+    let hora = date.getHours().toString().padStart(2, '0');
     let min = date.getMinutes().toString().padStart(2, '0');
 
     let currentDate =
