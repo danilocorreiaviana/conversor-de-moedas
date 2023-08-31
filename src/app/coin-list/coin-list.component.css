@@ -1,38 +1,3 @@
-@media (min-width: 602px) {
-
-    .container-mod ::ng-deep .ngx-pagination .current {
-        background: yellow;
-        color: black;
-        font-weight: 700;
-        border-radius: 50%;
-    }
-
-    .container-mod ::ng-deep ul>li:not(.active)>a {
-        color: #fff;
-        text-decoration: none;
-        border-radius: 10px;
-    }
-
-
-    .container-mod ::ng-deep ul>li>a:hover {
-        background-color: #bfbfbf;
-        color: black;
-    }
-
-}
-
-@media (max-width: 601px) {
-
-    .container-mod ::ng-deep ul>li:not(.active)>a {
-        color: black;
-        background-color: yellow;
-        margin: 10px;
-        border-radius: 10px;
-        text-decoration: none;
-    }
-
-}
-
 .pt {
     padding-top: 80px;
 }
@@ -41,7 +6,12 @@
     padding-bottom: 30px;
 }
 
-label {
+mat-paginator{
+    background-color: transparent;
+    color: #fff;
+
+}
+/* label {
     color: #fff;
     padding: 10px;
 }
@@ -54,7 +24,7 @@ label {
 .thread-color {
     background-color: #127369;
     color: #fff;
-}
+} */
 
 .container-mod {
     display: flex;
@@ -67,28 +37,35 @@ label {
     padding-bottom: 0;
 }
 
-.container-mod ::ng-deep nav>ul {
-    margin-right: 10px;
-    padding: 0;
-    margin-left: 10px;
-    color: #fff;
-}
-
-mat-icon {
-    cursor: pointer;
-    vertical-align: middle;
-}
-
 .busca {
+    cursor: pointer;
     margin: 0 auto;
     width: 500px;
 }
 
-.itens {
-    margin: 0 auto;
-    width: 200px;
+.responsive-paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.fixed-width {
-    width: 200px;
+.wrapper {
+    max-height: 40rem;
 }
+
+td,
+th {
+    width: 25%;
+   
+}
+
+th{
+    background-color: rgba(24, 141, 129, 0.8) !important;
+    color: white;
+}
+
+.custom-sort-header .mat-sort-header-arrow {
+    color: blue; /* Defina a cor desejada para a seta do MatSort */
+  }
