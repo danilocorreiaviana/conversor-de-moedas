@@ -1,22 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import HistoryInterface from '../interfaces/coin-history-interface/Icoin-history';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-coin-history',
   templateUrl: './coin-history.component.html',
   styleUrls: ['./coin-history.component.css']
 })
-export class CoinHistoryComponent {
+export class CoinHistoryComponent implements OnInit, AfterViewInit {
   title = 'Histórico de Conversões';
   history: HistoryInterface[] = [];
-  filtroOrdenacao: string = 'TimeAsc';
   historyDelete: boolean = false;
   conversionDelete: boolean = false;
 
+  dataSource!: MatTableDataSource<HistoryInterface>;
+
+  displayedColumns: string[] = ['date', 'time', 'input', 'originCurrency', 'destinyCurrency', 'output', 'rate', 'action'];
+
+  @ViewChild(MatSort) sort!: MatSort;
+
   constructor(private dialog: MatDialog) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.obterHistorico();
+  }
+
+  ngAfterViewInit(): void {
     this.obterHistorico();
   }
 
@@ -24,23 +35,11 @@ export class CoinHistoryComponent {
     const historyData = this.getData('historico_info');
     if (Array.isArray(historyData)) {
       this.history = historyData;
+      this.dataSource = new MatTableDataSource(this.history);
+      this.dataSource.sort = this.sort;
     } else {
       this.history = [];
     }
-  }
-
-  OrdenarHistorico(filtro: string) {
-    this.filtroOrdenacao = filtro;
-    if (filtro === "TimeAsc") {
-      this.history.sort((a, b) => a.time.localeCompare(b.time))
-    } else if (filtro === "TimeDesc") {
-      this.history.sort((a, b) => b.time.localeCompare(a.time))
-    } else if (filtro === "OutputAsc") {
-      this.history.sort((a, b) => a.output - b.output);
-    } else if (filtro === "OutputDesc") {
-      this.history.sort((a, b) => b.output - a.output);
-    }
-
   }
 
   getData(key: string): any {
@@ -75,6 +74,7 @@ export class CoinHistoryComponent {
   excluir(index: number) {
     this.history.splice(index, 1);
     localStorage.setItem('historico_info', JSON.stringify(this.history));
+    this.obterHistorico();
     this.conversionDelete = true;
     setTimeout(() => {
       this.conversionDelete = false;

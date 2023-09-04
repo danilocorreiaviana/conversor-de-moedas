@@ -1,66 +1,91 @@
 <div class="container pt pb">
 
   <h2 class="text-center">{{title}}</h2>
+
   <div class="text-center no-history" *ngIf="history.length === 0">
     <mat-icon> history icon</mat-icon>
     <p>Não há histórico de conversão!</p>
   </div>
 
-  <div *ngIf="history.length !== 0">
-    <div class="table-responsive">
-      <table class="table table-rounded">
-        <thead>
-          <tr class="text-center">
-            <th class="thread-color">Data</th>
-            <th class="thread-color">Hora</th>
-            <th class="thread-color">Valor</th>
-            <th class="thread-color">Moeda Origem</th>
-            <th class="thread-color">Moeda Destino</th>
-            <th class="thread-color">Resultado</th>
-            <th class="thread-color">Taxa</th>
-            <th class="thread-color">Ação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="text-center" *ngFor="let item of history; let i = index">
-            <td>{{ item.date }}</td>
-            <td>{{ item.time }}</td>
-            <td>{{ item.input }}</td>
-            <td>{{ item.originCurrency }}</td>
-            <td>{{ item.destinyCurrency }}</td>
-            <td>{{ item.output }} <mat-icon title="Valor maior que 10000 dólares" *ngIf="item.highValue"
-                class="highvalue">attach_money</mat-icon>
-            </td>
-            <td>{{ item.rate }}</td>
-            <td>
-              <mat-icon color="warn" class="delete" (click)="exibirDialogoExclusaoConversao(i)"
-                title="Deletar conversão">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" [hidden]="!(history.length!=0)"
+      class=" table mt-4 table-rounded text-center" matSort>
 
-    <div class="ordenar">
-      <span><strong>Hora: </strong> <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('TimeAsc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'TimeAsc' ? 'yellow' : 'white'}"
-          title="Ordem crescente">arrow_upward</mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('TimeDesc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'TimeDesc' ? 'yellow' : 'white'}"
-          title="Ordem decrescente">arrow_downward</mat-icon>
-      </span>
-      <span><strong>Resultado: </strong> <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('OutputAsc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'OutputAsc' ? 'yellow' : 'white'}"
-          title="Ordem crescente">arrow_upward</mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror" (click)="OrdenarHistorico('OutputDesc')"
-          [ngStyle]="{'color': filtroOrdenacao === 'OutputDesc' ? 'yellow' : 'white'}"
-          title="Ordem decrescente">arrow_downward</mat-icon>
-      </span>
-    </div>
+      <ng-container matColumnDef="date">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Data
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="time">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Hora
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.time }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="input">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Valor
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.input }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="originCurrency">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Moeda Origem
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.originCurrency }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="destinyCurrency">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Moeda Destino
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.destinyCurrency }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="output">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Resultado
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.output }}
+          <mat-icon title="Valor maior que 10000 dólares" *ngIf="item.highValue"
+            class="highvalue">attach_money</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rate">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Taxa
+        </th>
+        <td mat-cell *matCellDef="let item">{{ item.rate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th class="fw-bolder fs-6" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Ação
+        </th>
+        <td mat-cell *matCellDef="let item; let i = index">
+          <mat-icon color="warn" class="delete" (click)="exibirDialogoExclusaoConversao(i)"
+            title="Deletar conversão">delete</mat-icon>
+        </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="fw-bold fs-1" mat-row *matRowDef="let item; columns: displayedColumns"></tr>
+
+    </table>
   </div>
 
   <div class="text-center mt-4" *ngIf="history.length > 1">
-    <button class="btn btn-danger" (click)="exibirDialogoExclusaoTodo()" title="Deletar histórico">Limpar tudo</button>
+    <button class="btn btn-danger" (click)="exibirDialogoExclusaoTodo()" title="Deletar histórico">Limpar
+      tudo</button>
   </div>
 
   <div class="d-flex justify-content-center fixed-bottom" *ngIf="historyDelete === true">

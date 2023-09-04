@@ -11,9 +11,12 @@
     overflow: hidden;
 }
 
-.thread-color {
-    background-color: #127369;
-    color: #fff;
+td,
+th {
+    vertical-align: middle;
+    padding-left: 20px;
+    /* text-align: center; */
+
 }
 
 .no-history {
@@ -42,29 +45,6 @@
 
 .delete {
     cursor: pointer;
-}
-
-.ordenar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    background-color: #127369;
-    color: #fff;
-    padding: 20px;
-    margin-top: 10px;
-    border-radius: 5px;
-    padding-bottom: 20px;
-}
-
-.ordenar span {
-    margin-left: 10px;
-}
-
-.mat-icon-rtl-mirror,
-.close {
-    cursor: pointer;
-    vertical-align: middle;
 }
 
 .check-circle {

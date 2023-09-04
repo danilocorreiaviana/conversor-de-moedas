@@ -56,3 +56,16 @@ mat-form-field {
 .mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
   color: #008000;
 }
+
+.mat-mdc-table .mdc-data-table__header-row {
+  background-color: #127369;
+}
+
+.mat-mdc-table .mdc-data-table__header-cell {
+  color: #fff;
+}
+
+.mat-sort-header-arrow{
+  color: #fff;
+}
+
