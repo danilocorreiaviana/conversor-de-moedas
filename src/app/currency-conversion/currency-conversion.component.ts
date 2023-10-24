@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { CoinListService } from '../service/coin-list-service/coin-list.service';
 import { CurrencyConversionService } from '../service/currency-service/currency-conversion.service';
-import CurrencyConversion from '../interfaces/currency-conversion-interface/Icurrency-conversion';
 import HistoryInterface from '../interfaces/coin-history-interface/Icoin-history';
 
 @Component({
@@ -16,7 +15,6 @@ export class CurrencyConversionComponent implements OnInit {
   moedas: any[] = [];
   code!: string;
   description!: string[];
-  responseData!: CurrencyConversion;
   isDataReturned!: boolean;
   loading!: boolean;
   valorMaior!: number;
@@ -24,12 +22,13 @@ export class CurrencyConversionComponent implements OnInit {
   simboloDestino!: string;
   valor!: number;
   valorConvertido!: number;
-  taxaConversao!: number
+  taxaConversao!: number;
   formConverter: FormGroup = this.formBuilder.group({
     moedaOrigem: ['', [Validators.required, this.moedaValidate]],
     moedaDestino: ['', [Validators.required, this.moedaValidate]],
     valorConversao: ['', [Validators.required, Validators.min(0.01)]],
   });
+  msgErrorGet!: string;
   msgError!: string;
   isValorMaior: boolean = false;
 
@@ -58,6 +57,7 @@ export class CurrencyConversionComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar moedas:', error);
+        this.msgErrorGet = error.name
       }
     }
     );
@@ -113,27 +113,57 @@ export class CurrencyConversionComponent implements OnInit {
     this.formConverter.disabled;
 
     this.converter(moedaOrigem, moedaDestino, value);
-    console.log(this.responseData);
   }
 
   converter(from: string, to: string, amount: number) {
     this.loading = true;
-    this.currencyService.converter(from, 'USD', amount).subscribe({
-      next: (data: CurrencyConversion) => {
-        this.responseData = data;
-        this.valorMaior = this.responseData.result;
+    from = from.toLowerCase();
+    to = to.toLowerCase();
+    this.currencyService.converter(from, 'usd', amount).subscribe({
+      next: (data) => {
+        this.valorMaior = +(amount * data.data.amount).toFixed(4);
         if (this.valorMaior > 10000) {
           this.isValorMaior = true;
           console.log('O valor convertido é maior que 10000 dólares.');
         }
         this.currencyService.converter(from, to, amount).subscribe({
-          next: (data: CurrencyConversion) => {
-            this.responseData = data;
-            this.simboloOrigem = this.responseData.query.from;
-            this.simboloDestino = this.responseData.query.to;
-            this.valor = this.responseData.query.amount;
-            this.valorConvertido = +(this.responseData.result);
-            this.taxaConversao = +(this.responseData.info.rate);
+          next: (data) => {
+
+            function roundedDigits(value: any): any {
+              const numberString = value.toString();
+              const lenNumberString = numberString.length;
+              const posAfterPoint = numberString.indexOf('.') + 1;
+              const decimals = numberString.substring(posAfterPoint, lenNumberString);
+              const lenDecimals = decimals.length;
+              let countDecimals = 0;
+              let countSignificant = 0;
+              for (let i = 0; i < lenDecimals; i++) {
+                countDecimals += 1;
+                const caractere = +decimals[i];
+                if (caractere != 0) {
+                  countSignificant += 1;
+                  if (+decimals[1] === 0) {
+                    countDecimals += 1;
+                    break
+                  }
+                  if (countSignificant === 2)
+                    break
+                }
+              }
+
+              return Math.floor(value) != 0 && countDecimals >= 3 ?
+                value.toFixed(2) :
+                value.toFixed(countDecimals);
+
+            }
+
+            this.simboloOrigem = from.toUpperCase();
+            this.simboloDestino = to.toUpperCase();
+            this.valor = amount;
+            const valueConverter = +(amount * data.data.amount);
+            const rateConverter = +(parseFloat(data.data.amount));
+            this.valorConvertido = +roundedDigits(valueConverter);
+            this.taxaConversao = +roundedDigits(rateConverter);
             this.armazenarDados();
             this.isValorMaior = false;
 

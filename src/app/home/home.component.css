@@ -67,6 +67,15 @@ a {
     color: black;
 }
 
+.link {
+    border-radius: 30px;
+    background-color: #dad5d5;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 @media (max-width: 280px) {
     img {
         width: 150px;

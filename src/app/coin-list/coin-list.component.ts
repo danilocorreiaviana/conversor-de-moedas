@@ -14,7 +14,8 @@ export class CoinListComponent implements AfterViewInit {
   title = 'Listagem de Moedas';
   coinList: Coin[] = [];
   busca: string = '';
-  loading = true;
+  loading: boolean = true;
+  msgError: boolean = false;
 
   dataSource!: MatTableDataSource<Coin>;
 
@@ -22,13 +23,6 @@ export class CoinListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-  // @ViewChild(MatSort) set matSort(sort: MatSort) {
-  //   if (sort && !this.dataSource.sort) {
-  //     this.dataSource.sort = sort;
-  //   }
-  // }
-
 
   constructor(private coinService: CoinListService, private matPaginatorIntl: MatPaginatorIntl) {
     this.matPaginatorIntl.itemsPerPageLabel = 'Itens por página:';
@@ -38,33 +32,29 @@ export class CoinListComponent implements AfterViewInit {
     this.matPaginatorIntl.lastPageLabel = 'Última página';
   }
 
-  // ngOnInit(): void {
-  //   this.carregarCoinList()
-  // }
-
   ngAfterViewInit(): void {
     this.carregarCoinList()
-    // this.dataSource = new MatTableDataSource(this.coinList);
-    // this.dataSource.sort = this.sort; 
-    // this.dataSource.paginator = this.paginator;
-
   }
 
   carregarCoinList() {
     this.coinService.getCoins().subscribe({
+
       next: (coins: Coin[]) => {
-        this.coinList = coins.slice();
+        this.coinList = coins;
 
       },
-      error: (error) => {
+      error: (error: Error) => {
         console.log(error);
+        this.msgError = true;
       },
       complete: () => {
         this.loading = false;
+        this.msgError = false;
         this.dataSource = new MatTableDataSource(this.coinList);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
+
     });
   }
 

@@ -90,4 +90,11 @@
     <p>Ocorreu um erro inesperado, tente novamente!</p>
   </div>
 
+  <div class="d-flex justify-content-center fixed-bottom" *ngIf="msgErrorGet">
+    <div class="alert alert-danger fade show" role="alert">
+      <mat-icon class="mr-2 error-icon">close</mat-icon>
+      Erro ao carregar moedas!
+    </div>
+  </div>
+
 </div>
