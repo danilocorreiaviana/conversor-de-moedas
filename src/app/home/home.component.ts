@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   title = 'Conversor de Moedas';
+
+  public buttonIsVisible: boolean = window.innerWidth < 991;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.buttonIsVisible = window.innerWidth < 991;
+  }
 }

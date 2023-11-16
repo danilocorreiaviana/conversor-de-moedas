@@ -67,6 +67,17 @@ a {
     color: black;
 }
 
+.btn-success a {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 2px;
+}
+
+.icon-button {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
 .link {
     border-radius: 30px;
     background-color: #dad5d5;
@@ -76,9 +87,30 @@ a {
     padding-bottom: 5px;
 }
 
-@media (max-width: 280px) {
+@media (max-width: 320px) {
     img {
         width: 150px;
         height: 125px;
+    }
+
+}
+
+@media (max-width: 333px) {
+    .btn-success a {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+
+@media (max-width: 280px) {
+
+    .btn-success a {
+        font-size: 11px;
+        padding: 0;
+    }
+
+    .icon-button {
+        font-size: 18px;
     }
 }

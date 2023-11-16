@@ -3,10 +3,23 @@
             <h2>{{title}}</h2>
             <img src="../../assets/images/currency_converter.svg" alt="Conversão de moedas">
             <p>Projeto de conversão de moedas para exemplificar o consumo de APIs.</p>
+
+            <div *ngIf="buttonIsVisible" class="btn btn-success">
+                  <a href="/currency-conversion">
+                        <mat-icon class="icon-button">monetization_on</mat-icon>
+                        Ir para Conversão
+                  </a>
+            </div>
       </div>
-      <p class="text-center link">API utilizada: <b><a style="color: #585656;"
+
+
+      <p class="text-center link">
+            API utilizada: <b>
+                  <a style="color: #585656;"
                         href="https://docs.cloud.coinbase.com/sign-in-with-coinbase/docs/api-currencies"
                         target="_blank">Coinbase
-                        Cloud</a></b></p>
+                        Cloud
+                  </a></b>
+      </p>
 </div>
 <app-footer></app-footer>
