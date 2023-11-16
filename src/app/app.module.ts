@@ -23,6 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     FooterComponent,
     CurrencyConversionComponent,
     CoinHistoryComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
