@@ -1,15 +1,18 @@
 .navbar {
   background-color: #10403B;
+  border-bottom: 1px solid #ddd;
+  padding: 0; 
 }
 
 .navbar-nav .router-link-active {
-  color: yellow;
+  color: #e0e029;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
   scroll-behavior: none;
+  padding-left: 5px;
 }
 
 .navbar-toggler>.close {
@@ -21,14 +24,25 @@
   display: none;
 }
 
-.mat-icon {
+.nav-brand-icon {
   font-size: 24px;
-  margin-left: 5px;
-  color: #bcbcbc;
+  margin: 10px;
+  color: #afaf3a;
 }
 
 @media (max-width:334px) {
   .navbar-brand span {
     font-size: 15px;
+  }
+}
+
+@media (max-width:991px) {
+  .navbar-brand span {
+    font-size: 15px;
+  }
+
+  .navbar-nav {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
