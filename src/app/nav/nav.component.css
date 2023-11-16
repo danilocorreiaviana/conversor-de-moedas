@@ -1,7 +1,7 @@
 .navbar {
   background-color: #10403B;
   border-bottom: 1px solid #ddd;
-  padding: 0; 
+  padding: 0;
 }
 
 .navbar-nav .router-link-active {
@@ -44,5 +44,12 @@
   .navbar-nav {
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+}
+
+@media (max-width:280px) {
+  .navbar-brand span {
+    font-size: 13px;
+
   }
 }
