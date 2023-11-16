@@ -5,7 +5,8 @@
             <p>Projeto de conversão de moedas para exemplificar o consumo de APIs.</p>
 
             <div *ngIf="buttonIsVisible" class="btn btn-success">
-                  <a href="/currency-conversion">
+                  <a routerLink="/currency-conversion" routerLinkActive="router-link-active"
+                        [routerLinkActiveOptions]="{exact: true}">
                         <mat-icon class="icon-button">monetization_on</mat-icon>
                         Ir para Conversão
                   </a>
